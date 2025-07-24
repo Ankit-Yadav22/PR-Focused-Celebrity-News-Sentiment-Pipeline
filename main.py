@@ -11,13 +11,23 @@ API_KEY = os.getenv("API_KEY")
 celebrities = ["Virat Kohli", "MS Dhoni"]
 results = []
 
+# Calculate date range: from 15 days ago to today
+end_date = datetime.utcnow().date()
+start_date = end_date - timedelta(days=15)
+
+# Format as YYYY-MM-DD
+from_date = start_date.strftime('%Y-%m-%d')
+to_date = end_date.strftime('%Y-%m-%d')
+
 for celeb in celebrities:
     url = (
         "https://newsapi.org/v2/everything?"
         f"q=\"{celeb}\"&"
+        f"from={from_date}&"
+        f"to={to_date}&"
         "language=en&"
         "sortBy=publishedAt&"
-        "pageSize=10&"
+        "pageSize=100&"  # Max allowed per page
         f"apiKey={API_KEY}"
     )
     response = requests.get(url)
