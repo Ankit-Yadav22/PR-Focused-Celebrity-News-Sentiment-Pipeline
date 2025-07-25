@@ -2,12 +2,10 @@ import requests
 import pandas as pd
 from datetime import datetime
 from textblob import TextBlob
-from dotenv import load_dotenv
-import os
 
-load_dotenv() 
 
-API_KEY = os.getenv("API_KEY") 
+dbutils.widgets.text("API_KEY", "")
+API_KEY = dbutils.widgets.get("API_KEY")
 celebrities = ["Virat Kohli", "MS Dhoni"]
 results = []
 
